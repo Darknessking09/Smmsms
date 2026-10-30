@@ -14,7 +14,7 @@ const BOT_TOKEN = process.env.BOT_TOKEN;
 const PUBLIC_BOT_URL = process.env.PUBLIC_BOT_URL || 'https://t.me/YourPublicBot';
 const LOGO_URL = process.env.LOGO_URL || 'https://example.com/logo.png';
 const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET || 'change_me_secret';
-const VERCEL_URL = process.env.VERCEL_URL || 'your-app.vercel.app';
+const VERCEL_URL = process.env.VERCEL_URL || 'ultrabomber-alpha.vercel.app';
 const REDIS_URL = process.env.UPSTASH_REDIS_REST_URL;
 const REDIS_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN;
 
