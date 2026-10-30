@@ -431,14 +431,18 @@ bot.command('logo', async (ctx) => sendWelcome(ctx));
 module.exports = async (req, res) => {
     // GET /api/bot?setWebhook=1 -> register webhook
     if (req.method === 'GET' && req.query.setWebhook === '1') {
-        try {
-            const url = `https://${VERCEL_URL}/api/bot`;
-            await bot.telegram.setWebhook(url, { secret_token: WEBHOOK_SECRET });
-            return res.status(200).json({ ok: true, webhook: url });
-        } catch (e) {
-            return res.status(500).json({ ok: false, error: e.message });
-        }
+    if (process.env.VERCEL_ENV === 'preview') {
+        return res.status(403).json({ ok: false, error: 'preview blocked' });
     }
+    try {
+        const url = `https://${VERCEL_URL}/api/bot`;
+        await bot.telegram.setWebhook(url, { secret_token: WEBHOOK_SECRET });
+        return res.status(200).json({ ok: true, webhook: url });
+    } catch (e) {
+        return res.status(500).json({ ok: false, error: e.message });
+    }
+    }
+    
     if (req.method === 'GET' && req.query.deleteWebhook === '1') {
         try { await bot.telegram.deleteWebhook(); return res.status(200).json({ ok: true }); }
         catch (e) { return res.status(500).json({ ok: false, error: e.message }); }
